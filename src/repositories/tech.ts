@@ -53,8 +53,16 @@ export class TechRepository{
         return deleted;
     }
 
-    async index(){
-        const techs = await prisma.techs.findMany()
+    async index(search: string){
+        const techs = await prisma.techs.findMany({
+            where:{
+                OR: [
+                    { name: {contains: search} },
+                    { nicknames: {contains: search} },
+                    { tags: {contains: search}}
+                ]
+            }
+        })
 
         return techs;
     }

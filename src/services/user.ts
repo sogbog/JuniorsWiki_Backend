@@ -1,7 +1,7 @@
 import { UserRepository } from "../repositories/user";
 import { AppError } from "../utils/AppError";
-import  bcrypt  from "bcrypt"
-const { hash } = require("bcryptjs") as typeof bcrypt;
+import { hash } from "bcryptjs"
+//const { hash } = require("bcryptjs") as typeof bcrypt;
 
 type createUserRequest = {
     username: string,
@@ -26,7 +26,6 @@ export class UserServices{
         
         
         const encryptedPass = await hash(userInfo.password, 8)
-        console.log(userExists);
         
         let noAdm = true;
         const admins = await this.userRepository.findAdmins();

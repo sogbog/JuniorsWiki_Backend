@@ -5,7 +5,12 @@ export class TechController{
     techServices = new TechServices
 
     async index(request: Request, response: Response){
-        const techs = await this.techServices.index();
+        const {search} = request.query
+
+        let techs
+        if(typeof search === "string") techs = await this.techServices.index(search);
+             
+        else techs = await this.techServices.index("");
 
         return response.status(200).json(techs)
     }
@@ -23,6 +28,9 @@ export class TechController{
     async update(request: Request, response: Response){
         const techInfo = request.body;
         const { name } = request.params;
+
+        console.log(request.body)
+        console.log(request.params)
 
         const updated = await this.techServices.update(name, techInfo)
 

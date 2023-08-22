@@ -12,22 +12,18 @@ type techJSON = {
 export class TechServices{
     techRepository = new TechRepository;
     
-    async index(){
-        const techs = this.techRepository.index();
+    async index(search: string){
+        const techs = this.techRepository.index(search);
 
         return techs;
     }
 
 
     async create(techInfo: techJSON){
-        if(!techInfo.name){
-            throw new AppError("O campo nome é obrigatório", 400);
-        }
-        
+        if(!techInfo.name) throw new AppError("O campo nome é obrigatório", 400);
+                    
         const exists = await this.techRepository.findByName(techInfo.name);
-        if(exists){
-            throw new AppError("Já existe uma tecnologia com esse nome", 400);
-        }
+        if(exists) throw new AppError("Já existe uma tecnologia com esse nome", 400);
 
         const created = await this.techRepository.create(techInfo.name, techInfo.img, techInfo.description, techInfo.nicknames, techInfo.tags);
 
@@ -38,18 +34,12 @@ export class TechServices{
     async update(target: string, techInfo: techJSON){
         
         const found = await this.techRepository.findByName(target);
-        if(!found){
-            throw new AppError("Essa tecnologia não foi encontrada", 400);
-        } 
+        if(!found) throw new AppError("Essa tecnologia não foi encontrada", 400);
 
-        if(!techInfo.name){
-            throw new AppError("O campo nome é obrigatório", 400);
-        }
-
+        if(!techInfo.name) throw new AppError("O campo nome é obrigatório", 400);
+    
         const exists = await this.techRepository.findByName(techInfo.name);
-        if(exists){
-            throw new AppError("Já existe uma tecnologia com esse nome", 400);
-        }  
+        if(exists && techInfo.name != exists.name) throw new AppError("Já existe uma tecnologia com esse nome", 400);
         
         const updated = await this.techRepository.update(target, techInfo.name, techInfo.img, techInfo.description, techInfo.nicknames, techInfo.tags)
 
