@@ -2,7 +2,6 @@ import { UserRepository } from "../repositories/user";
 import { AppError } from "../utils/AppError";
 import { sign } from "jsonwebtoken"
 import { compare } from "bcryptjs";
-//const { compare } = require("bcryptjs")
 const jwtConfig = require("../utils/jwt")
 
 

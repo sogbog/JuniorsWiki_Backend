@@ -29,9 +29,6 @@ export class TechController{
         const techInfo = request.body;
         const { name } = request.params;
 
-        console.log(request.body)
-        console.log(request.params)
-
         const updated = await this.techServices.update(name, techInfo)
 
         return response.status(200).json(updated)

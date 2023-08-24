@@ -1,7 +1,6 @@
 import { UserRepository } from "../repositories/user";
 import { AppError } from "../utils/AppError";
 import { hash } from "bcryptjs"
-//const { hash } = require("bcryptjs") as typeof bcrypt;
 
 type createUserRequest = {
     username: string,

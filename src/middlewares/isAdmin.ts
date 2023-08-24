@@ -35,6 +35,4 @@ export function isAdmin(request: Request, response: Response, next: NextFunction
     } catch {
         throw new AppError("Token de autenticação inválido", 401)
     }
-
-    console.log(token)
 }
